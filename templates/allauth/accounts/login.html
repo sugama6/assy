@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+<!--
+{% block content %}
+<body class="login">
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="button" class="btn btn-primary">ログイン</button>
+</form>
+</body>
+{% endblock %}-->
+
+{% block content %}
+ああああああああああああ
+<h1>{% trans "Sign In" %}</h1>
+
+<h3>SUCCESS!!</h3>　　★ここ★
+{% get_providers as socialaccount_providers %}
+
+{% if socialaccount_providers %}
+<p>{% blocktrans with site.name as site_name %}Please sign in with one

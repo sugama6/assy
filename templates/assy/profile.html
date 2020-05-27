@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block customcss %}
+{% endblock customcss %}
+
+{% block content %}
+<div class="profile_content">
+    <div class="profile_list">
+        <h2>プロフィール設定</h2>
+        <!--<form action="{% url 'home' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="投稿">
+        </form>-->
+        <form action="" method='POST'>{% csrf_token %}
+            <img class="img_update" src="/static/assy/img/{{ user.img }}" width=250px>
+            <div class="profile_update">
+                <p><strong>アカウント名</strong>　　{{ form.username }}</p>
+                    <div class="note">
+                        <div class="note_title"><p>個人の情報</p></div>
+                        <p>アカウントがビジネス、ペットなどに使用されている場合でも、<br>個人の情報を入力してください。これは公開プロフィールでは表示されません。</p>
+                    </div>
+                <p><strong>メールアドレス</strong>　{{ form.email }}</p>
+                <p><strong>年齢</strong>　　　　　　{{ form.age }}</p>
+                <p><strong>性別</strong>　　　　　　{{ form.gender }}</p>
+                <p><input class="btn btn-primary" type="submit" value="変更する"></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock content %}
