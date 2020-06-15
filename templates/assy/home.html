@@ -16,19 +16,26 @@
     <div class="home_content">
         {% for item in more_context %}
         <div class="post_list">
-            <img class="user_icon" src="/static/assy/img/{{ user.img }}">
-            {{ item.image }}
+            <div class="image1">
+                {% if user.image %}
+                    <img class="user_icon" src="/{{ item.image.url }}" width=250px>
+                {% else %}
+                    <img class="user_icon" src="assy/img/01.jpg" width=250px>
+                {% endif %}
+               
+                </div>
             <div class="post_info">
                 <p class="post_user">{{ user.username }}</p>
                 <p class="post_place"><strong>場所 :</strong> {{ item.place }}</p>
                 <p class="post_people"><strong>人数 :</strong> {{ item.member }}</p>
                 <p class="meeting"><strong>時間 :</strong> {{ item.date|date:"n/j G時i分" }}</p>
-                <!--<p class="meeting"><strong>時間 :</strong> {{ item.date0|date:"n/j" }}</p>-->
-                <!--<p class="meeting"><strong>時間 :</strong> {{ item.date1|date:"G時i分" }}</p>-->
                 <p class="post_comment"><strong>コメント :</strong> {{ item.contents }}</p>
+            </div>
+            <div class="iitd">
+                <p class="post_input"><input type="text" size="20"><input class="post_button" type="submit" value="送信"></p>
                 <p class="post_time">{{ item.post_time|date:"n/j G:i" }}</p>
                 {% if user.id == item.user_id %}
-                <button type="button" class="button is-danger delete-modal-button" data-deleteurl="{% url 'delete' item.pk %}">削除</button>
+                <button type="button" class="button is-light delete-modal-button" data-deleteurl="{% url 'delete' item.pk %}">削除</button>
                 <div class="modal" id="modal">
                     <div class="modal-background"></div>
                         <div class="modal-card">

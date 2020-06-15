@@ -28,8 +28,14 @@ body{
   font-size: 20px;
   margin-right: 20px;
   margin-bottom: 0;
-  padding: 15px;
+  margin-left: 88%;
+  padding: 15px 15px 15px 0;
+  left: 80%;
   text-align: right;
+  width: 150px;
+}
+
+.my_account p{
   color: white;
 }
 
@@ -110,15 +116,14 @@ svg{
   font-size: 5.5vmin;
   color: rgba(255, 255, 255, 0.8);
   top: 40%;
-  left: 20%;
+  left: 25%;
   text-align: center;
   font-family: "Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体";
 }
 
 .home_content{
-  /*background-color: rgba(var(--b3f,250,250,250),1); */
   background-color: #f5f5f5;
-  padding: 10px 100px;
+  padding: 10px 9%;
   overflow: hidden;
   display: flex;
   flex-flow: row wrap;
@@ -129,8 +134,8 @@ svg{
   border: 1px solid gray;
   background-color: white;
   margin: 10px 5px 10px 5px;
-  padding: 20px;
-  width: 300px;
+  padding: 10px;
+  width: 280px;
   transition: all .5s;
 }
 
@@ -140,10 +145,8 @@ svg{
   opacity: 0.7;
 }
 
-.post_time{
-  color: gray;
-  font-size: 15px;
-  margin-bottom: 0;
+.image1{
+  padding: 18px;
 }
 
 .user_icon{
@@ -155,25 +158,51 @@ svg{
   object-fit: cover;
 }
 
-.post_user{
-  font-size: 20px;
-  color: gray;
-}
-
 .post_info{
   padding: 0 20px 0 20px;
 }
 
-.post_info p{
+.post_user{
+  font-size: 20px;
+  color: gray;
   margin: 10px 0;
 }
 
+.post_place{
+  margin: 10px 0;
+}
+
+.post_people{
+  margin: 10px 0;
+}
+
+.meeting{
+  margin: 10px 0;
+}
+
+.post_comment{
+  margin: 10px 0;
+  height: 60px;
+}
+
+.post_input{
+  margin: 3px 15px;
+}
+
+
+.post_button{
+  margin: 0;
+}
+
 .post_time{
+  color: gray;
   float: left;
+  font-size: 15px;
+  margin: 3px 100px 3px 15px;
 }
 
 .post_info button{
-  margin-left:90px;
+  margin-left: 50px;
 }
 
 .post_content{
@@ -208,18 +237,18 @@ svg{
 }
 
 .btn{
-  margin: 15px 0 0 110px;
+  margin: 15px 0 0 125px;
   width: 100px;
 }
 
 .profile_content{
-  padding: 40px 70px 40px 70px;
+  padding: 2% 5%;
 }
 
 .profile_list{
   background-color: white;
   width: 60%;
-  height: 740px;
+  height: 100%;
   padding: 60px 50px 20px 50px;
   margin: 0px 280px 50px 280px;
   color: black;
@@ -260,4 +289,138 @@ svg{
 
 .note p{
   margin-top: 0;
+}
+
+.chat_content{
+  background-color: #f5f5f5;
+  height: 1000px;
+  display: flex;
+  
+}
+
+.chat_content2{
+  margin: 25px 200px;
+  position: fixed;
+}
+
+.chat_list{
+  border: 1px solid #636C75;
+  width: 40%;
+  height: 790px;
+  color: white;
+  float: left;
+  overflow: auto;
+}
+
+.chat_list_title{
+  font-size: 25px;
+  text-align: center;
+  background: -webkit-linear-gradient(left, #7E898F 0%, #636C75 100%), -webkit-radial-gradient(at top, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0.55) 100%), -webkit-radial-gradient(at top, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0.08) 63%);
+  background: linear-gradient(90deg, #7E898F 0%, #636C75 100%), radial-gradient(at top, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0.55) 100%), radial-gradient(at top, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0.08) 63%);
+  height: 70px;
+  width: 398px;
+  padding: 15px;
+  position: fixed;
+}
+
+.space{
+ height: 70px;
+}
+
+.chat_member{
+  border-bottom: 1px solid #636C75;
+  height: 100px;
+  color: black;
+  background-color: white;
+}
+
+.chat_member_list{
+  overflow:auto;
+}
+
+.chat_info{
+  padding: 20px;
+}
+
+.chat_member_user_name{
+  font-size: 17px;
+  text-align: left;
+}
+
+.chat_comment_history{
+  font-size: 13px;
+}
+
+.chat_room{
+  border: 1px solid #636C75;
+  height: 790px;
+  background-color: white;
+  width: 1000px;
+}
+
+.chat_list_user_img{
+  float: left;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;        
+  margin: 15px 10px;
+  object-fit: cover;
+}
+
+.response_user{
+  background-color: white;
+  height: 70px;
+  padding: 10px;
+  border-bottom: 1px solid #636C75;
+}
+
+.response_user_img{
+  float: left;
+  width: 50px;
+  height: 50px;
+  margin: 0 15px 0 55px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.response_user_name{
+  font-size: 20px;
+  padding: 7px;
+}
+
+.last_chat_time{
+  font-size: 10px;
+  text-align: right;
+  margin-right: 15px;
+}
+#id_place{
+  width: 250px;
+}
+
+#id_member{
+  width: 50px;
+}
+
+#id_date{
+  width: 250px;
+}
+#id_contents{
+  width: 400px;
+  height: 300px;
+}
+
+#id_username{
+  width: 250px;
+}
+
+#id_email{
+  width: 250px;
+}
+
+#id_age{
+  width: 50px;
+}
+
+#id_gender{
+  height: 30px;
 }

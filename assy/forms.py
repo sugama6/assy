@@ -11,26 +11,37 @@ class CustomSignupForm(SignupForm):
     ]
     gender = forms.ChoiceField(choices=data, widget=forms.RadioSelect()) 
     age = forms.IntegerField()
+    image = forms.ImageField()
 
     class Meta:
         model = CustomUser
 
     def signup(self, request,user):
-        #user.image = self.cleaned_data['image']
         user.age = self.cleaned_data['age']
         user.gender = self.cleaned_data['gender']
+        user.image = self.cleaned_data['image']
         user.save()
         return user
 
-#class PostCreateForm(forms.ModelForm):
-#    class Meta:
-#        model = PostContents
-#        fields = '__all__'
-#        widgets = {
-#            'place': forms.TextInput(attrs={'placeholder':'例）○○駅'}),
-#        }
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ('username','email','age','gender','image')
 
-class PostCreateForm(forms.Form):
+
+#未完成
+class CreateForm(forms.ModelForm):
     class Meta:
         model = PostContents
-        image = forms.ImageField()
+        fields = ('place','date','member','contents')
+        widgets = {
+            'place': forms.TextInput(attrs={'placeholder':'例）○○駅'}),
+            'date': forms.DateTimeInput(attrs={'placeholder': '例）yyyy-mm-dd hh:mm:ss'}),
+            'contents': forms.TextInput(attrs={'placeholder':'例）終電なくしたので誰か迎えにきてください。'})
+        }
+
+#class PostCreateForm(forms.Form):
+#    class Meta:
+#        model = PostContents
+#        image = forms.ImageField()
+#        email = forms.EmailField()

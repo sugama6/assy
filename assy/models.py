@@ -29,6 +29,7 @@ class PostContents(models.Model):
     place = models.CharField(max_length=30)
     date = models.DateTimeField()
     post_time = models.DateTimeField(default=timezone.now)
+    image = models.ImageField(upload_to='images/', verbose_name='画像', null=True)
 
     def __str__(self):
         return str(self.post_id)
