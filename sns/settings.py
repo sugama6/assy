@@ -48,6 +48,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media', 
             ],
         },
     },
@@ -92,8 +93,9 @@ USE_L10N = True
 
 
 STATIC_URL = '/static/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')#画像アップローダ
-MEDIA_URL = '/media/'
+
+IMAGE_ROOT = os.path.join(BASE_DIR, 'images')#画像アップローダ
+IMAGE_URL = '/images/'
 
 #追加
 AUTHENTICATION_BACKENDS = (
