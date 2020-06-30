@@ -10,12 +10,12 @@
     <div class="profile_list">
         <h2>プロフィール設定</h2>
         
-        <form action="{% url 'profile' id %}" method='POST' id='myform' enctype="multipart/form-data">{% csrf_token %}
+        <form action="" method='POST' id='myform' enctype="multipart/form-data">{% csrf_token %}
             {% if user.image %}
                 <img class="img_update" src="/{{ user.image.url }}" width=250px>
             {% endif %}
             <div class="profile_update">
-                <p>{{ form.image }}</p>
+                <p><strong>プロフィール画像</strong>{{ form.image }}</p>
                 <p><strong>アカウント名</strong>　　{{ form.username }}</p>
                     <div class="note">
                         <div class="note_title"><p>個人の情報</p></div>

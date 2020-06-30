@@ -18,11 +18,12 @@ class CustomUser(AbstractUser):
     age = models.IntegerField(blank=True, default=0)
     gender = models.IntegerField(choices=GENDER_CHOICES, blank=True, default=0)
     img = models.TextField(blank=True, default='icon_default.jpg')
-    image = models.ImageField(upload_to='images/', verbose_name="画像", null=True)
+    image = models.ImageField(upload_to='images/', verbose_name="画像", blank=True, null=True)
 
 class PostContents(models.Model):
     post_id = models.AutoField(primary_key=True)
     user_id = models.IntegerField(null=True)
+    username = models.CharField(max_length=100, null=True)
     contents = models.TextField()
     member = models.IntegerField(null=True)
     reward = models.CharField(max_length=30)

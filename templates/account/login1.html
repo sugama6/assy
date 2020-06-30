@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-<!--
+{% extends "account/base.html" %}
+
 {% block content %}
 <body class="login">
 <form method="post">
@@ -8,7 +8,7 @@
     <button type="button" class="btn btn-primary">ログイン</button>
 </form>
 </body>
-{% endblock %}-->
+
 
 {% block content %}
 ああああああああああああ
@@ -18,4 +18,5 @@
 {% get_providers as socialaccount_providers %}
 
 {% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
+<p>{% blocktrans with site.name as site_name %}Please sign in with one</p>
+{% endblock %}

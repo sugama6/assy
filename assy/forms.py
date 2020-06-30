@@ -27,8 +27,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ('username','email','age','gender','image')
-
-
+        
 #未完成
 class CreateForm(forms.ModelForm):
     class Meta:
@@ -39,9 +38,3 @@ class CreateForm(forms.ModelForm):
             'date': forms.DateTimeInput(attrs={'placeholder': '例）yyyy-mm-dd hh:mm:ss'}),
             'contents': forms.TextInput(attrs={'placeholder':'例）終電なくしたので誰か迎えにきてください。'})
         }
-
-#class PostCreateForm(forms.Form):
-#    class Meta:
-#        model = PostContents
-#        image = forms.ImageField()
-#        email = forms.EmailField()

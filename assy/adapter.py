@@ -7,4 +7,5 @@ class AccountAdapter(DefaultAccountAdapter):
         user = super(AccountAdapter, self).save_user(request, user, form, commit=False)
         user.age = form.cleaned_data.get('age')
         user.gender = form.cleaned_data.get('gender')
+        user.image = form.cleaned_data.get('image')
         user.save()
