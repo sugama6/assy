@@ -1,7 +1,8 @@
 from allauth.account.forms import SignupForm
 from django import forms
-from .models import CustomUser, PostContents
+from .models import CustomUser, PostContents, RoomModel, Message
 from allauth.account.adapter import DefaultAccountAdapter
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class CustomSignupForm(SignupForm):
@@ -9,8 +10,9 @@ class CustomSignupForm(SignupForm):
         ( 1, '男性'),
         ( 2 , '女性'),
     ]
-    gender = forms.ChoiceField(choices=data, widget=forms.RadioSelect()) 
-    age = forms.IntegerField()
+    #email = forms.EmailField(label='hello')
+    gender = forms.ChoiceField(choices=data) 
+    age = forms.IntegerField(validators=[MinValueValidator(20),MaxValueValidator(99)])
     image = forms.ImageField()
 
     class Meta:
@@ -22,13 +24,8 @@ class CustomSignupForm(SignupForm):
         user.image = self.cleaned_data['image']
         user.save()
         return user
-
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = CustomUser
-        fields = ('username','email','age','gender','image')
         
-#未完成
+#投稿フォーム
 class CreateForm(forms.ModelForm):
     class Meta:
         model = PostContents
@@ -38,3 +35,15 @@ class CreateForm(forms.ModelForm):
             'date': forms.DateTimeInput(attrs={'placeholder': '例）yyyy-mm-dd hh:mm:ss'}),
             'contents': forms.TextInput(attrs={'placeholder':'例）終電なくしたので誰か迎えにきてください。'})
         }
+
+#プロフィール編集フォーム
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ('username','email','age','gender','image')
+
+#チャットフォーム
+class RoomForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ('room','name','content','message_history')

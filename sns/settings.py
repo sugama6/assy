@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'allauth', #for djnago-allauth
     'allauth.account', #for djnago-allauth
     'allauth.socialaccount',#for djnago-allauth
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +55,17 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'sns.wsgi.application'
+#WSGI_APPLICATION = 'sns.wsgi.application'
+ASGI_APPLICATION = 'sns.routing.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 DATABASES = {
     'default': {
@@ -64,8 +75,11 @@ DATABASES = {
         'PASSWORD': 'postgres',
         'HOST': '127.0.0.1',
         'POST': '5432',
+        
     }
 }
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {

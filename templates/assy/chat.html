@@ -1,9 +1,6 @@
 {% extends 'layout.html' %}
 {% load static %}
 
-{% block customcss %}
-{% endblock customcss %}
-
 {% block content %}
 <div class="chat_content">
     <div class="chat_content2">
@@ -11,7 +8,7 @@
             <div class="chat_list_title">
                 <p>Direct</p>
             </div>
-                <p class="space">　</p>
+               <div class="space"></div>
                 <div class="chat_member">
                     <img class="chat_list_user_img" src="/static/assy/img/{{ user.img }}">
                     <div class="chat_info">
@@ -20,82 +17,62 @@
                         <p class="last_chat_time">5月20日 12:00</p>
                     </div>
                 </div>
-                <div class="chat_member">
-                    <img class="chat_list_user_img" src="/static/assy/img/{{ user.img }}">
-                    <div class="chat_info">
-                        <p class="chat_member_user_name">{{ user.username }}</p>
-                        <p class="chat_comment_history">そしたら２０時でお願いします。</p>
-                        <p class="last_chat_time">5月20日 12:00</p>
-                    </div>
-                </div>
-                <div class="chat_member">
-                    <img class="chat_list_user_img" src="/static/assy/img/{{ user.img }}">
-                    <div class="chat_info">
-                        <p class="chat_member_user_name">{{ user.username }}</p>
-                        <p class="chat_comment_history">そしたら２０時でお願いします。</p>
-                        <p class="last_chat_time">5月20日 12:00</p>
-                    </div>
-                </div>
-                <div class="chat_member">
-                    <img class="chat_list_user_img" src="/static/assy/img/{{ user.img }}">
-                    <div class="chat_info">
-                        <p class="chat_member_user_name">{{ user.username }}</p>
-                        <p class="chat_comment_history">そしたら２０時でお願いします。</p>
-                        <p class="last_chat_time">5月20日 12:00</p>
-                    </div>
-                </div>
-                <div class="chat_member">
-                    <img class="chat_list_user_img" src="/static/assy/img/{{ user.img }}">
-                    <div class="chat_info">
-                        <p class="chat_member_user_name">{{ user.username }}</p>
-                        <p class="chat_comment_history">そしたら２０時でお願いします。</p>
-                        <p class="last_chat_time">5月20日 12:00</p>
-                    </div>
-                </div>
-                <div class="chat_member">
-                    <img class="chat_list_user_img" src="/static/assy/img/{{ user.img }}">
-                    <div class="chat_info">
-                        <p class="chat_member_user_name">{{ user.username }}</p>
-                        <p class="chat_comment_history">そしたら２０時でお願いします。</p>
-                        <p class="last_chat_time">5月20日 12:00</p>
-                    </div>
-                </div>
-                <div class="chat_member">
-                    <img class="chat_list_user_img" src="/static/assy/img/{{ user.img }}">
-                    <div class="chat_info">
-                        <p class="chat_member_user_name">{{ user.username }}</p>
-                        <p class="chat_comment_history">そしたら２０時でお願いします。</p>
-                        <p class="last_chat_time">5月20日 12:00</p>
-                    </div>
-                </div>
-                <div class="chat_member">
-                    <img class="chat_list_user_img" src="/static/assy/img/{{ user.img }}">
-                    <div class="chat_info">
-                        <p class="chat_member_user_name">{{ user.username }}</p>
-                        <p class="chat_comment_history">そしたら２０時でお願いします。</p>
-                        <p class="last_chat_time">5月20日 12:00</p>
-                    </div>
-                </div>
-                <div class="chat_member">
-                    <img class="chat_list_user_img" src="/static/assy/img/{{ user.img }}">
-                    <div class="chat_info">
-                        <p class="chat_member_user_name">{{ user.username }}</p>
-                        <p class="chat_comment_history">そしたら２０時でお願いします。</p>
-                        <p class="last_chat_time">5月20日 12:00</p>
-                    </div>
-                </div>
-            
         </div>
-   
     
     
         <div class="chat_room">
             <div class="response_user">
-                <img class="response_user_img" src="/static/assy/img/{{ user.img }}">
-                <p class="response_user_name">{{ user.username }}</p>
+                <div class="talk_room">
+                    {% for item in user1 %}
+                        <img class="talk_now" src="/{{ item.image.url }}">
+                    {% endfor %}
+                    <p class="talk_user_name">{{ username }}</p>
+                </div>
+                <form action="{% url 'room' username %}" method="post">{% csrf_token %}
+                    {{ form.message_history }}
+                    {{ form.content }}
+                    <input id="chat-message-submit" type="submit" value="Send">
+                </form>
             </div>
         </div>
     </div>
 </div>
+{{ username | json_script:"room-name" }}
+    <script>
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/assy/'
+            + roomName
+            + '/'
+        );
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            document.querySelector('#id_message_history').value += (data.message + '\n');
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        //chat-message-input
+        document.querySelector('#id_content').focus();
+        document.querySelector('#id_content').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#id_content');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInputDom.value = '';
+        };
+    </script>
 {% endblock content %}

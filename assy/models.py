@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+from django.core.validators import MaxValueValidator, MinValueValidator
+import uuid
 # Create your models here.
 
 
@@ -15,14 +17,14 @@ class CustomUser(AbstractUser):
         db_table = 'auth_user'
         verbose_name_plural = 'CustomUser'
 
-    age = models.IntegerField(blank=True, default=0)
+    age = models.IntegerField(blank=True, default=0,validators=[MinValueValidator(20),MaxValueValidator(99)])
     gender = models.IntegerField(choices=GENDER_CHOICES, blank=True, default=0)
     img = models.TextField(blank=True, default='icon_default.jpg')
     image = models.ImageField(upload_to='images/', verbose_name="画像", blank=True, null=True)
 
 class PostContents(models.Model):
     post_id = models.AutoField(primary_key=True)
-    user_id = models.IntegerField(null=True)
+    #user_id = models.IntegerField(null=True)
     username = models.CharField(max_length=100, null=True)
     contents = models.TextField()
     member = models.IntegerField(null=True)
@@ -31,19 +33,25 @@ class PostContents(models.Model):
     date = models.DateTimeField()
     post_time = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='images/', verbose_name='画像', null=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.post_id)
 
-class ChatModel(models.Model):
-    chat_id = models.AutoField(primary_key=True, default=0)
-    user_id = models.IntegerField()
-    chat_time = models.DateTimeField(auto_now=True)
-    response_nm = models.CharField(max_length=30)
-    response_id = models.CharField(max_length=30)
-    chat_history = models.TextField()
+class RoomModel(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    room_name = models.CharField(max_length=100, null=True)
+    chat_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return str(self.chat_id)
+        return str(self.room_id)
 
+class Message(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    room = models.ForeignKey(RoomModel, blank=True, null=True, related_name='room_messages', on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    content = models.TextField()
+    message_history = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 

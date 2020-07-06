@@ -1,13 +1,93 @@
-<!doctype html>
-{% extends "base.html" %}
-
-
+{% extends "account/base.html" %}
+{% load static %}
 
 {% block content %}
+<body class="signup_body">
+    <div class="signup_content">
+        <h1 class="signup_assy">Assy</h1>
+            <p class="signup_consept">終電逃してしまった、、<br><br>どうやって帰ろうか、、<br><br>交通手段がない、、<br><br>そんな経験ありませんか？<br><br>心配いりません。<br><br>Assyで迎えにきてくれる人を探しましょう。</p>
+    </div>
+    <div class="signup_form">
+            <h2 class="signup_title">新規登録</h2>
+            <form action="{% url 'signup' %}" method="post" enctype='multipart/form-data'>
+            {% csrf_token %}
+                <table class="signup_table">
+                    <tr><th>Name</th><td>{{ form.username }}</td></tr>
+                    <tr><th>Email</th><td>{{ form.email }}</td></tr>
+                    <tr><th>Gender</th><td>{{ form.gender }}</td></tr>
+                    <tr><th>Age</th><td>{{ form.age }}&emsp;<span style="color: #f22"></span></td></tr>
+                    <tr><th>Image</th><td>{{ form.image }}</td></tr>
+                    <tr><th>Password1</th><td>{{ form.password1 }}</td></tr>
+                    <tr><th>Password2</th><td>{{ form.password2 }}</td></tr>
+                    <tr><th></th><td><a href="{% url 'login' %}"><button type="submit" class="btn btn-info" style="width: 60%; margin :2% 1%;">ユーザー登録</button></a></td></tr>
+                </table>
+            </form>
+    </div>
+    <div class="make_user">
+        <p class="account_have">アカウントをお持ちですか？&emsp;<a href="{% url 'login' %}">ログイン</a></p>
+    </div>
+<footer class="signup_footer">&copy;2020 Yusuke Sugama</footer>
+    <script>
+        const username = document.querySelector('input[name="username"]')
+        username.addEventListener('blur', () => {
+            if (username.value === '') {
+                username.style.backgroundColor = '#fcc';
+            } else {
+                username.style.backgroundColor = '#fff';
+                username.nextElementSibling.innerHTML = '';
+            }
+        });
 
-<form method="post" enctype='multipart/form-data'>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <p><a href="{% url 'login' %}"><button type="submit">ユーザー登録</button></a></p>
-</form>
+        const email = document.querySelector('input[name="email"]')
+        email.addEventListener('blur', () => {
+            if (email.value === '') {
+                email.style.backgroundColor = '#fcc';
+            } else {
+                email.style.backgroundColor = '#fff';
+                email.nextElementSibling.innerHTML = '';
+            }
+        });
+
+        const gender = document.querySelector('input[name="gender"]')
+        gender.addEventListener('blur', () => {
+            if (gender.value === '') {
+                gender.style.backgroundColor = '#fcc';
+            } else {
+                gender.style.backgroundColor = '#fff';
+                gender.nextElementSibling.innerHTML = '';
+            }
+        });
+
+        const age = document.querySelector('input[name="age"]')
+        age.addEventListener('blur', () => {
+            if (age.value === '') {
+                age.style.backgroundColor = '#fcc';
+                age.nextElementSibling.innerHTML = '※20歳以上';
+            } else {
+                age.style.backgroundColor = '#fff';
+                age.nextElementSibling.innerHTML = '';
+            }
+        });
+
+        const password1 = document.querySelector('input[name="password1"]')
+        password1.addEventListener('blur', () => {
+            if (password1.value === '') {
+                password1.style.backgroundColor = '#fcc';
+            } else {
+                password1.style.backgroundColor = '#fff';
+                password1.nextElementSibling.innerHTML = '';
+            }
+        });
+
+        const password2 = document.querySelector('input[name="password2"]')
+        password2.addEventListener('blur', () => {
+            if (password2.value === '') {
+                password2.style.backgroundColor = '#fcc';
+            } else {
+                password2.style.backgroundColor = '#fff';
+                password2.nextElementSibling.innerHTML = '';
+            }
+        });
+    </script>
+</body>
 {% endblock %}

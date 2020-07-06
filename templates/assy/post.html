@@ -8,19 +8,13 @@
 <div class="post_content">
     <div class="new_post_content">
         <h2>お迎え依頼</h2>
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+       
             <form action="{% url 'post' %}" method="POST">{% csrf_token %}
-                <div class="post_item"><p><strong>場所</strong>　　</p>{{ form.place }}</div>
-                <div class="post_item"><p><strong>人数</strong>　　</p>{{ form.member }}　人</div>
+                <div class="post_item"><p><strong>場所</strong>&emsp;&emsp;</p>{{ form.place }}</div>
+                <div class="post_item"><p><strong>人数</strong>&emsp;&emsp;</p>{{ form.member }}&emsp;人</div>
                 <div class="post_item"><p><strong>集合時間</strong></p>{{ form.date }}</div>
                 <div class="post_item"><p class="comment"><strong>コメント</strong></p>{{ form.contents }}</div>
-                <div class="post_item"><p><input class="btn btn-primary" type="submit" value="投稿"></p></div>
+                <div class="post_item"><p><input class="btn btn-primary" type="submit" value="投稿" style="margin-right: auto;"></p></div>
             </form>
     </div>
 </div>

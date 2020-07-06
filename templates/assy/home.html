@@ -17,17 +17,19 @@
         {% for item in more_context %}
         <div class="post_list">
             <div class="image1">
-                    <img class="user_icon" src="/{{ item.image.url }}" width=250px>
-                </div>
+               <img class="user_icon" src="/{{ item.user.image.url }}" width=250px>
+            </div>
             <div class="post_info">
-                <p class="post_user">{{ item.username }}</p>
+                <p class="post_user">{{ item.user.username }}</p>
                 <p class="post_place"><strong>場所 :</strong> {{ item.place }}</p>
                 <p class="post_people"><strong>人数 :</strong> {{ item.member }}</p>
                 <p class="meeting"><strong>時間 :</strong> {{ item.date|date:"n/j G時i分" }}</p>
                 <p class="post_comment"><strong>コメント :</strong> {{ item.contents }}</p>
+                {% if user.id != item.user_id %}
+                <p class="dm"><a href="{% url 'room' item.username %}">メッセージを送る</a></p>
+                {% endif %}
             </div>
             <div class="iitd">
-                <p class="post_input"><input type="text" size="20"><input class="post_button" type="submit" value="送信"></p>
                 <p class="post_time">{{ item.post_time|date:"n/j G:i" }}</p>
                 {% if user.id == item.user_id %}
                 <button type="button" class="button is-light delete-modal-button" data-deleteurl="{% url 'delete' item.pk %}">削除</button>

@@ -10,7 +10,7 @@
     <div class="profile_list">
         <h2>プロフィール設定</h2>
         
-        <form action="" method='POST' id='myform' enctype="multipart/form-data">{% csrf_token %}
+        <form method='POST' id='myform' enctype="multipart/form-data">{% csrf_token %}
             {% if user.image %}
                 <img class="img_update" src="/{{ user.image.url }}" width=250px>
             {% endif %}
@@ -24,7 +24,7 @@
                 <p><strong>メールアドレス</strong>　{{ form.email }}</p>
                 <p><strong>年齢</strong>　　　　　　{{ form.age }}</p>
                 <p><strong>性別</strong>　　　　　　{{ form.gender }}</p>
-                <p><input class="btn btn-primary" type="submit" value="変更する"></p>
+                <p><input class="btn btn-primary" style="margin-right: 20%; margin-top: 0; width: 60%" type="submit" value="変更する"></p>
             </div>
         </form>
     </div>
