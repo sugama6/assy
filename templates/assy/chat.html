@@ -10,7 +10,7 @@
             </div>
                <div class="space"></div>
                 <div class="chat_member">
-                    <img class="chat_list_user_img" src="/static/assy/img/{{ user.img }}">
+                    <img class="chat_list_user_img" src="/{{ user.image.url }}">
                     <div class="chat_info">
                         <p class="chat_member_user_name">{{ user.username }}</p>
                         <p class="chat_comment_history">そしたら２０時でお願いします。</p>
@@ -31,7 +31,7 @@
                 <form action="{% url 'room' username %}" method="post">{% csrf_token %}
                     {{ form.message_history }}
                     {{ form.content }}
-                    <input id="chat-message-submit" type="submit" value="Send">
+                    <input id="chat-message-submit" type="submit" value="送信">
                 </form>
             </div>
         </div>

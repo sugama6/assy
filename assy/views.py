@@ -31,41 +31,14 @@ def message(request):
     return HttpResponse(template.render(context, request))
 
 #チャット画面
-#def chat(request, room_name):
-#    messages = Message.objects.filter(room__name=room_name).order_by('-chat_time')[:50]
-#    room = RoomModel.objects.filter(name=room_name)[0]
-#    template = loader.get_template('assy/room.html')
-#    context = {
-#        'messages': messages,
-#        'room': room
-#    }
-#    return HttpResponse(template.render(context, request))
-#class RoomView(ListView):
-#    template_name = 'assy/room.html'
-#    model = Message
-#
-#    def get_context_data(self, **kwargs):
-#        context = super().get_context_data(**kwargs)
-#        context.update({
-#            'username': self.request.user.username,
-#            'form': RoomForm,
-#        })
-#        return context
-#
-#    def form_valid(self, form):
-#        self.object = form.save(commit=False)
-#        self.object.name = self.request.user.username
-#        self.object.save()
- 
 def room(request, username):
     user1 = CustomUser.objects.filter(username=username)
     print(user1)
     
     if request.method == 'POST':
-        #content = request.POST['content']
-        #message_history = request.POST['message_history']
-        #message = Message(content=content, message_history=message_history)
-        message = RoomForm(request.POST, instance=user1)
+        content = request.POST['content']
+        message = Message(content=content)
+        #message = RoomForm(request.POST, instance=user1) 
         message.save()
     params = {
         'form': RoomForm(),

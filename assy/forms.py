@@ -46,4 +46,4 @@ class ProfileForm(forms.ModelForm):
 class RoomForm(forms.ModelForm):
     class Meta:
         model = Message
-        fields = ('room','name','content','message_history')
+        fields = ('room','content','message_history')
