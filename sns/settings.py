@@ -55,7 +55,7 @@ TEMPLATES = [
     },
 ]
 
-#WSGI_APPLICATION = 'sns.wsgi.application'
+WSGI_APPLICATION = 'sns.wsgi.application'
 ASGI_APPLICATION = 'sns.routing.application'
 
 CHANNEL_LAYERS = {
@@ -70,7 +70,7 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres_assy',
+        'NAME': 'assy1',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': '127.0.0.1',

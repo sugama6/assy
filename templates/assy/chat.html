@@ -9,14 +9,16 @@
                 <p>Direct</p>
             </div>
                <div class="space"></div>
+               {% for chat in chat_list %}
                 <div class="chat_member">
-                    <img class="chat_list_user_img" src="/{{ user.image.url }}">
+                    <img class="chat_list_user_img" src="/{{ chat.user.image.url }}">
                     <div class="chat_info">
-                        <p class="chat_member_user_name">{{ user.username }}</p>
+                        <p class="chat_member_user_name">{{ chat.name }}</p>
                         <p class="chat_comment_history">そしたら２０時でお願いします。</p>
-                        <p class="last_chat_time">5月20日 12:00</p>
+                        <p class="last_chat_time">{{ chat.chat_time }}</p>
                     </div>
                 </div>
+                {% endfor %}
         </div>
     
     
@@ -30,6 +32,7 @@
                 </div>
                 <form action="{% url 'room' username %}" method="post">{% csrf_token %}
                     {{ form.message_history }}
+                    <div id=id_message_history>　　　　　</div>
                     {{ form.content }}
                     <input id="chat-message-submit" type="submit" value="送信">
                 </form>

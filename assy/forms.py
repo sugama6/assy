@@ -47,3 +47,6 @@ class RoomForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ('room','content','message_history')
+        widgets = {
+            'message_history': forms.TextInput(attrs={'disabled':'desabled'})
+        }

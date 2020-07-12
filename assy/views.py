@@ -33,19 +33,22 @@ def message(request):
 #チャット画面
 def room(request, username):
     user1 = CustomUser.objects.filter(username=username)
-    print(user1)
-    
-    if request.method == 'POST':
-        content = request.POST['content']
-        message = Message(content=content)
-        #message = RoomForm(request.POST, instance=user1) 
-        message.save()
+    message = Message.objects.all()
+    #room = RoomModel.objects.select_related('room')
+    room_name = RoomModel.objects.values('name')
+    print('-------------------')
+    print(room_name)
+    print('-------------------')
+    room = RoomModel(name=username)    
+    room.save()
     params = {
-        'form': RoomForm(),
-        'username': username,
-        'user1': user1
+        'form': RoomForm(),    #フォーム
+        'username': username,    #ユーザー名
+        'user1': user1,    #レスポンスユーザー
+        'chat_list': RoomModel.objects.all().order_by('-chat_time'),
         }
     return render(request, 'assy/chat.html', params)  
+    
 ##def room(request):s
 #    return render(request, 'assy/room.html')
 
@@ -77,9 +80,9 @@ class ProfileUpdate(UpdateView):
     fields = ('username','age','email','gender','image')
     success_url = reverse_lazy('home')
 
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        return super().form_valid(form)
+    #def form_valid(self, form):
+    #    self.object = form.save(commit=False)
+    #    return super().form_valid(form)
    
 #投稿削除
 class PostDelete(DeleteView):
