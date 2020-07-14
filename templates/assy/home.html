@@ -26,7 +26,7 @@
                 <p class="meeting"><strong>時間 :</strong> {{ item.date|date:"n/j G時i分" }}</p>
                 <p class="post_comment"><strong>コメント :</strong> {{ item.contents }}</p>
                 {% if user.id != item.user_id %}
-                <p class="dm"><a href="{% url 'room' item.username %}">メッセージを送る</a></p>
+                <p class="dm"><a href="{% url 'chat' item.username %}">メッセージを送る</a></p>
                 {% endif %}
             </div>
             <div class="iitd">

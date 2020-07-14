@@ -1,6 +1,6 @@
 from django.urls import path, include
 from . import views
-from .views import HomeList, PostCreate, PostDelete, ProfileUpdate, room, message
+from .views import HomeList, PostCreate, PostDelete, ProfileUpdate, chat, message
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -12,6 +12,6 @@ urlpatterns = [
     path('assy/delete/<int:pk>', PostDelete.as_view(), name='delete'),
     path('assy/message/', views.message, name='message'),
     #path('assy/room/<int:id>/', views.room, name='room'),
-    path('assy/room/<str:username>/', views.room, name='room'),
+    path('assy/chat/<str:username>/', views.chat, name='chat'),
  ] +  static(settings.IMAGE_URL, document_root=settings.IMAGE_ROOT)
 

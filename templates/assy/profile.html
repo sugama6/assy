@@ -10,7 +10,7 @@
     <div class="profile_list">
         <h2>プロフィール設定</h2>
         
-        <form method='POST' id='myform' enctype="multipart/form-data">{% csrf_token %}
+        <form action="" method='POST' id='myform' enctype="multipart/form-data">{% csrf_token %}
             {% if user.image %}
                 <img class="img_update" src="/{{ user.image.url }}" width=250px>
             {% endif %}

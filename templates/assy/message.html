@@ -3,22 +3,17 @@
 
 
 {% block content %}
-<div class="header">
-    Django - チャットアプリデモ
-    </div>
-    
-    <h2>ルームを新しく作成する<h2>
-    <div class="create-room-box">
-        <form action="/room/" method="post">
-            {% csrf_token %}
-            <input placeholder="ルーム名を入力" type="text" name="room_name" value="">
-            <input type="submit" class="send" name="button" value="作成"> 
-        </form>
-    </div>
-    
-    
-<input id="room-name-input" type="text" size="20">
-<input id="room-name-submit" type="button" value="送信">
+<div>
+    <p>トークルーム</p>
+    <a href="#">
+        <div class="room_list">
+            {% for item in room_list %}
+                <p>{{ item.name }}</p>
+                <p>{{ item.chat_time }}</p>
+            {% endfor %}
+        </div>
+    </a>
+</div>
 <script>
     document.querySelector('#room-name-input').focus();
         document.querySelector('#room-name-input').onkeyup = function(e) {

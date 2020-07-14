@@ -50,7 +50,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def _save_message(self, message):
         Message.objects.create(
-            room=self.room_name,
-            message_history=message,
+            username = self.room_name,
+            message_history = message,
             #user_name=self.user.room_name,
         )

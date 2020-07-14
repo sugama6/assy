@@ -41,6 +41,7 @@ class PostContents(models.Model):
 class RoomModel(models.Model):
     room_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=100, null=True)
+    request_id = models.IntegerField(null=True)
     chat_time = models.DateTimeField(default=timezone.now)
     #post = models.ForeignKey(PostContents, on_delete=models.CASCADE)
 
@@ -52,7 +53,7 @@ class Message(models.Model):
     room = models.CharField(max_length=100, null=True)
     #room = models.ForeignKey(RoomModel, blank=True, null=True, related_name='room_messages', on_delete=models.CASCADE)
     content = models.TextField(null=True)
-    message_history = models.TextField(null=True)
+    message_history = models.CharField(max_length=100, null=True)
     created_at = models.DateTimeField(default=timezone.now, null=True)
 
     def __str__(self):

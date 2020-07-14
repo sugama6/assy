@@ -23,34 +23,31 @@ class HomeList(ListView):
         return context
 
 def message(request):
-    room_list = RoomModel.objects.order_by('-chat_time')[:5]
     template = loader.get_template('assy/message.html')
+    user = CustomUser.objects.all()
     context = {
-        'room_list': room_list,
+        'room_list': RoomModel.objects.order_by('-chat_time'),
     }
     return HttpResponse(template.render(context, request))
 
 #チャット画面
-def room(request, username):
-    user1 = CustomUser.objects.filter(username=username)
-    message = Message.objects.all()
-    #room = RoomModel.objects.select_related('room')
-    room_name = RoomModel.objects.values('name')
-    print('-------------------')
-    print(room_name)
-    print('-------------------')
-    room = RoomModel(name=username)    
+def chat(request, username):
+    post = PostContents.objects.filter(username=username)
+    room = RoomModel(name=username,request_id=request.user.id)
     room.save()
     params = {
         'form': RoomForm(),    #フォーム
         'username': username,    #ユーザー名
-        'user1': user1,    #レスポンスユーザー
-        'chat_list': RoomModel.objects.all().order_by('-chat_time'),
+        'post': post,
+        'chat_list': RoomModel.objects.filter(request_id=request.user.id).order_by('chat_time'),
+        'users': CustomUser.objects.all(),
+        'message': Message.objects.filter(room=username)
         }
+    if request.method == 'POST':
+        content = request.POST['content']
+        message_history = Message(message_history=content, room=username)
+        message_history.save()
     return render(request, 'assy/chat.html', params)  
-    
-##def room(request):s
-#    return render(request, 'assy/room.html')
 
 #新規投稿
 class PostCreate(CreateView):
