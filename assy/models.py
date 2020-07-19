@@ -51,6 +51,7 @@ class RoomModel(models.Model):
 class Message(models.Model):
     message_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     room = models.CharField(max_length=100, null=True)
+    request_user = models.CharField(max_length=100, null=True)
     #room = models.ForeignKey(RoomModel, blank=True, null=True, related_name='room_messages', on_delete=models.CASCADE)
     content = models.TextField(null=True)
     message_history = models.CharField(max_length=100, null=True)

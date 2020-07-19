@@ -10,8 +10,8 @@ urlpatterns = [
     path('assy/demo/', views.demo, name='demo'),
     path('assy/profile/<int:pk>', ProfileUpdate.as_view(), name='profile'),
     path('assy/delete/<int:pk>', PostDelete.as_view(), name='delete'),
-    path('assy/message/', views.message, name='message'),
     #path('assy/room/<int:id>/', views.room, name='room'),
     path('assy/chat/<str:username>/', views.chat, name='chat'),
+    path('assy/message/<str:name>', views.message, name='message'),
  ] +  static(settings.IMAGE_URL, document_root=settings.IMAGE_ROOT)
 

@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-
 <div id="your_container">
         <!-- チャットの外側部分① -->
         <div id="bms_messages_container">
@@ -25,8 +24,7 @@
             <div class="chat_list">
                 {% for chat in chat_list %}
                     <div class="chat_member">
-                        <a href="#">
-                            
+                        <a href="{% url 'chat' chat.name %}">
                         {% for user_image in users %}
                             {% if user_image.username == chat.name %}
                             <img class="chat_list_user_img" src="/{{ user_image.image.url }}">
@@ -47,6 +45,7 @@
 
                 <!--メッセージ１（左側）-->
                 {% for messages in message %}
+                    {% if messages.room == username and messages.request_user != user.username %}
                     <div class="bms_message bms_left">
                         <div class="bms_message_box">
                             <div class="bms_message_content">
@@ -57,23 +56,24 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                 {% endfor %}
                 <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
 
                 <!--メッセージ２（右側）-->
                 {% for messages in message %}
-                <div class="bms_message bms_right">
-                    <div class="bms_message_box">
-                        <div class="bms_message_content">
-                            <div class="bms_message_text">
-                                <p>{{ messages.message_history }}</p>
-                                <p><small>{{ messages.created_at|date:"j日 G:i" }}</small></p>
+                    {% if messages.room == username and messages.request_user == user.username %}
+                        <div class="bms_message bms_right">
+                            <div class="bms_message_box">
+                                <div class="bms_message_content">
+                                    <div class="bms_message_text">
+                                        <p>{{ messages.message_history }}</p>
+                                        <p><small>{{ messages.created_at|date:"j日 G:i" }}</small></p>
+                                    </div>
+                                </div>
                             </div>
-                   
                         </div>
-                    </div>
-                </div>
-                
+                    {% endif %}
                 {% endfor %}
                 
             </div>

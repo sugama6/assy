@@ -22,30 +22,41 @@ class HomeList(ListView):
         })
         return context
 
-def message(request):
-    template = loader.get_template('assy/message.html')
-    user = CustomUser.objects.all()
-    context = {
-        'room_list': RoomModel.objects.order_by('-chat_time'),
-    }
-    return HttpResponse(template.render(context, request))
+def message(request, name):
+    post = PostContents.objects.filter(username=name)
+    room = RoomModel(name=name,request_id=request.user.id)
+    room.save()
+    params = {
+        'form': RoomForm(),    #フォーム
+        'username': name,    #ユーザー名
+        'post': post,
+        'chat_list': RoomModel.objects.filter(request_id=request.user.id).order_by('chat_time'),
+        'users': CustomUser.objects.all(),
+        'message': Message.objects.filter(room=name)
+        }
+    if request.method == 'POST':
+        content = request.POST['content']
+        message_history = Message(message_history=content, room=name)
+        message_history.save()
+    return render(request, 'assy/message.html', params)  
 
 #チャット画面
 def chat(request, username):
     post = PostContents.objects.filter(username=username)
     room = RoomModel(name=username,request_id=request.user.id)
-    room.save()
+    #room.save()
     params = {
         'form': RoomForm(),    #フォーム
         'username': username,    #ユーザー名
         'post': post,
         'chat_list': RoomModel.objects.filter(request_id=request.user.id).order_by('chat_time'),
         'users': CustomUser.objects.all(),
-        'message': Message.objects.filter(room=username)
+        'message': Message.objects.filter(room=username),
+        #'repuest_message': Message.objects.filter(request_user=request.user.username),
         }
     if request.method == 'POST':
         content = request.POST['content']
-        message_history = Message(message_history=content, room=username)
+        message_history = Message(message_history=content, room=username, request_user=request.user.username)
         message_history.save()
     return render(request, 'assy/chat.html', params)  
 
