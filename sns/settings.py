@@ -1,10 +1,11 @@
 import os
+import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'oh@@!2i!wruo^paa9c27je4y(n$$7*$3f2=_uk(jst8rsgtc(5'
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -70,10 +71,10 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'assy3',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
+        'NAME': 'df21clh7nicae8',
+        'USER': 'cpyrsoqlxhrmnz',
+        'PASSWORD': 'c9e1e397ff3fd21caefc59e364ef70487c21559183af0cbce350df00e3d603ff',
+        'HOST': 'ec2-18-235-109-97.compute-1.amazonaws.com',
         'POST': '5432',
     }
 }
@@ -106,6 +107,7 @@ USE_L10N = True
 
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 IMAGE_ROOT = os.path.join(BASE_DIR, 'images')#画像アップローダ
 IMAGE_URL = '/images/'
@@ -141,3 +143,30 @@ ACCOUNT_FORMS = {
 }
 #signupformからの情報をcustomusermodelに保存するのに必要
 ACCOUNT_ADAPTER = 'assy.adapter.AccountAdapter'
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
+if not DEBUG:
+    SECRET_KEY = os.environ['SECRET_KEY']
+    django_heroku.settings(locals())
+
+import django_heroku #追加
+    
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', #追加
+]
+
+db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'].update(db_from_env)

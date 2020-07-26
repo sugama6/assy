@@ -41,6 +41,7 @@ class PostContents(models.Model):
 class RoomModel(models.Model):
     room_id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=100, null=True)
+    request_user = models.CharField(max_length=100, null=True)
     request_id = models.IntegerField(null=True)
     chat_time = models.DateTimeField(default=timezone.now)
     #post = models.ForeignKey(PostContents, on_delete=models.CASCADE)

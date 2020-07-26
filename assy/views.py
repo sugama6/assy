@@ -24,8 +24,10 @@ class HomeList(ListView):
 
 def message(request, name):
     post = PostContents.objects.filter(username=name)
-    room = RoomModel(name=name,request_id=request.user.id)
-    room.save()
+    roomcnt = RoomModel.objects.filter(name=name,request_user=request.user.username).count()
+    if roomcnt == 0 :
+        room = RoomModel(name=name, request_user=request.user.username)
+        room.save()
     params = {
         'form': RoomForm(),    #フォーム
         'username': name,    #ユーザー名
