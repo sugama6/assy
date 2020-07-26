@@ -45,7 +45,10 @@ def message(request, name):
 #チャット画面
 def chat(request, username):
     post = PostContents.objects.filter(username=username)
-    room = RoomModel(name=username,request_id=request.user.id)
+    roomcnt = RoomModel.objects.filter(name=username,request_user=request.user.username).count()
+    if roomcnt == 0 :
+        room = RoomModel(name=username, request_user=request.user.username)
+        room.save()
     #room.save()
     params = {
         'form': RoomForm(),    #フォーム

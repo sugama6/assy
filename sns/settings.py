@@ -149,11 +149,13 @@ try:
 except ImportError:
     pass
 
+
 if not DEBUG:
     SECRET_KEY = os.environ['SECRET_KEY']
+    import django_heroku 
     django_heroku.settings(locals())
 
-import django_heroku #追加
+#追加
     
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
