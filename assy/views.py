@@ -22,26 +22,6 @@ class HomeList(ListView):
         })
         return context
 
-def message(request, name):
-    post = PostContents.objects.filter(username=name)
-    roomcnt = RoomModel.objects.filter(name=name,request_user=request.user.username).count()
-    if roomcnt == 0 :
-        room = RoomModel(name=name, request_user=request.user.username)
-        room.save()
-    params = {
-        'form': RoomForm(),    #フォーム
-        'username': name,    #ユーザー名
-        'post': post,
-        'chat_list': RoomModel.objects.filter(request_id=request.user.id).order_by('chat_time'),
-        'users': CustomUser.objects.all(),
-        'message': Message.objects.filter(room=name)
-        }
-    if request.method == 'POST':
-        content = request.POST['content']
-        message_history = Message(message_history=content, room=name)
-        message_history.save()
-    return render(request, 'assy/message.html', params)  
-
 #チャット画面
 def chat(request, username):
     post = PostContents.objects.filter(username=username)
